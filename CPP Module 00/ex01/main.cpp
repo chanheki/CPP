@@ -18,12 +18,9 @@ void hostingLoop(PhoneBook phoneBook) {
 		} else if (userInput == "ADD") {
 			phoneBook.addContact();
 		} else if (userInput == "SEARCH") {
-			phoneBook.printContacts();
-			
+			phoneBook.searchContact();
+			phoneBook.contactInfo();
 		} else if (userInput == "EXIT") {
-			break ;
-		} else if (userInput == "eof") {
-			std::cout << std::endl;
 			break ;
 		} else {
 			std::cout << "Undefined behavior is ignored: " << userInput << std::endl;
@@ -33,7 +30,7 @@ void hostingLoop(PhoneBook phoneBook) {
 
 int main() {
 	PhoneBook phoneBook;
-	std::cout << "Welcome my PhoneBook" << std::endl;
+	std::cout << "Welcome PhoneBook" << std::endl;
 	hostingLoop(phoneBook);
 	return 0;
 }

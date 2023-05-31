@@ -6,13 +6,13 @@
 #    By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/16 18:05:34 by chanheki          #+#    #+#              #
-#    Updated: 2023/05/30 23:15:12 by chanheki         ###   ########.fr        #
+#    Updated: 2023/05/31 02:22:01 by chanheki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ---- NAME ---- #
 
-NAME		=	phonebook
+NAME		=	account
 
 CC			=	c++
 STD			=	-std=c++98
@@ -25,7 +25,7 @@ object_dir	=	./objects
 
 # ---- TEST ---- #
 
-EXEC		=	phonebook
+EXEC		=	account
 
 # ---- escape ---- #
 
@@ -45,10 +45,8 @@ RED = \033[31m
 
 sources1 :=	
 
-sources1 += Contact.cpp \
-			PhoneBook.cpp \
-			Utils.cpp \
-			main.cpp
+sources1 += Account.cpp \
+			tests.cpp
 
 # ---- Bonus ---- #
 
@@ -72,7 +70,7 @@ endef
 
 # ---- Command ---- #
 
-.PHONY : all bonus clean fclean re
+.PHONY : all bonus clean fclean re test
 
 all : $(NAME)
 
@@ -83,7 +81,6 @@ $(NAME) : $(objects_goal)
 bonus : $(NAME)
 
 $(object_dir)/%.o : %.cpp
-	@#mkdir -p $(object_dir)
 	@mkdir -p $(object_dir)/$(dir $^)
 	@$(CC) $(CFLAGS) -c $^ -o $@
 	@echo " $(MAGENTA)$(NAME) $(RESET)objects file compiling... $(DELINE)$(GREEN) $^ $(RESET)$(CURSUP)"
@@ -101,4 +98,7 @@ re : fclean
 	@make $(react)
 
 test: all
-	./$(EXEC)
+	cat 19920104_091532.log | awk '{$$1=""; print $$0}' > log
+	./$(EXEC) | awk '{$$1=""; print $$0}' > mylog
+	diff log mylog
+	

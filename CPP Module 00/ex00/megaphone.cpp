@@ -9,7 +9,7 @@
 
 void printUppercase(int argc, char **argv){
 	for (int i = 1; i < argc; i++) {
-		std::string word(argv[i]);
+		std::string word = argv[i];
 		for (size_t j = 0; j < word.length(); j++) {
 			char c = std::toupper(word[j]);
 			std::cout << c;
@@ -19,10 +19,9 @@ void printUppercase(int argc, char **argv){
 }
 
 int main(int argc, char **argv) {
-	if (argc == 1) {
+	if (argc == 1)
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-		return 0;
-	}
-	printUppercase(argc, argv);
+	else 
+		printUppercase(argc, argv);
 	return 0;
 }

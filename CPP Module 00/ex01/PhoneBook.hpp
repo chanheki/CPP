@@ -16,17 +16,12 @@ class PhoneBook {
 private:
 	Contact	contacts[MAX_CONTACTS];
 	int		oldestIndex;
-	int		latestIndex;
-	bool	isEmpty;
 
 public:
+	PhoneBook();
 	void addContact();
-	void findContac();
-	void printContacts();
-	void contactInfo(int index);
-	void info();
+	void searchContact();
+	void contactInfo();
 };
-
-void addPhoneBook();
 
 #endif /* PhoneBook_hpp */

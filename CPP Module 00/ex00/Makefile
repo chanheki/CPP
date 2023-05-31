@@ -6,7 +6,7 @@
 #    By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/16 18:05:34 by chanheki          #+#    #+#              #
-#    Updated: 2023/01/19 22:53:55 by chanheki         ###   ########.fr        #
+#    Updated: 2023/05/31 02:22:21 by chanheki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,6 @@ $(NAME) : $(objects_goal)
 bonus : $(NAME)
 
 $(object_dir)/%.o : %.cpp
-	@#mkdir -p $(object_dir)
 	@mkdir -p $(object_dir)/$(dir $^)
 	@$(CC) $(CFLAGS) -c $^ -o $@
 	@echo " $(MAGENTA)$(NAME) $(RESET)objects file compiling... $(DELINE)$(GREEN) $^ $(RESET)$(CURSUP)"
