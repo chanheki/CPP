@@ -6,7 +6,7 @@
 #    By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/16 18:05:34 by chanheki          #+#    #+#              #
-#    Updated: 2023/05/31 21:58:07 by chanheki         ###   ########.fr        #
+#    Updated: 2023/06/01 18:53:20 by chanheki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,7 +97,12 @@ fclean : clean
 
 re : fclean
 	@make $(react)
+	
+# ---- Test ---- #
+
+leaks: all
+	./$(EXEC) | grep leak
 
 test: all
-	./$(EXEC)
+	./$(EXEC) | head -n 7
 	

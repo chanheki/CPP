@@ -6,13 +6,13 @@
 #    By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/16 18:05:34 by chanheki          #+#    #+#              #
-#    Updated: 2023/06/01 16:24:39 by chanheki         ###   ########.fr        #
+#    Updated: 2023/06/01 16:51:35 by chanheki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ---- NAME ---- #
 
-NAME		=	SedIsForLosers
+NAME		=	Harl
 
 CC			=	c++
 STD			=	-std=c++98
@@ -25,7 +25,7 @@ object_dir	=	./objects
 
 # ---- TEST ---- #
 
-EXEC		=	SedIsForLosers
+EXEC		=	Harl
 
 # ---- escape ---- #
 
@@ -45,8 +45,7 @@ RED = \033[31m
 
 sources1 :=	main.cpp
 
-sources1 += Reader.cpp \
-			Validator.cpp
+sources1 += Harl.cpp
 
 # ---- Bonus ---- #
 
@@ -99,9 +98,6 @@ re : fclean
 
 # ---- Test ---- #
 
-leaks: all
-	./$(EXEC) a V a | grep leak
-
 test : all
-	./$(EXEC) a V M ; cat a.replace
+	./$(EXEC)
 	
