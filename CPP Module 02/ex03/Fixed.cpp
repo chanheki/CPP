@@ -6,11 +6,11 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 02:36:59 by chanheki          #+#    #+#             */
-/*   Updated: 2023/06/02 04:17:41 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/06/02 04:44:52 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Fixed.hpp"
+#include "bsp.hpp"
 
 const int Fixed::_fractionalBits = 8;
 

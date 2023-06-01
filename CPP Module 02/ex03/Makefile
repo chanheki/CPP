@@ -6,13 +6,13 @@
 #    By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/16 18:05:34 by chanheki          #+#    #+#              #
-#    Updated: 2023/06/02 04:19:51 by chanheki         ###   ########.fr        #
+#    Updated: 2023/06/02 04:47:02 by chanheki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ---- NAME ---- #
 
-NAME		=	Fixed
+NAME		=	bsp
 
 CC			=	c++
 STD			=	-std=c++98
@@ -25,7 +25,7 @@ object_dir	=	./objects
 
 # ---- TEST ---- #
 
-EXEC		=	Fixed
+EXEC		=	bsp
 
 # ---- escape ---- #
 
