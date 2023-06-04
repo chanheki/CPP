@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 02:36:59 by chanheki          #+#    #+#             */
-/*   Updated: 2023/06/02 04:17:41 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/06/04 01:35:31 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ Fixed::Fixed(const int value)
 Fixed::Fixed(const float value)
 {
 	this->_fixedPointValue = roundf(value * (1 << this->_fractionalBits));
+}
+
+Fixed& Fixed::operator=(Fixed const &fixed)
+{
+	if (this != &fixed)
+		this->setRawBits(fixed.getRawBits());
+	return (*this);
 }
 
 int Fixed::getRawBits(void) const
@@ -83,34 +90,27 @@ bool Fixed::operator!=(const Fixed& other)
 	return this->getRawBits() != other.getRawBits();
 }
 
-Fixed& Fixed::operator=(Fixed const &fixed)
+Fixed& Fixed::operator+(Fixed const &other)
 {
-	if (this != &fixed)
-		this->setRawBits(fixed.getRawBits());
+	this->setRawBits(this->getRawBits() + other.getRawBits());
 	return (*this);
 }
 
-Fixed& Fixed::operator+(Fixed const &fixed)
+Fixed& Fixed::operator-(Fixed const &other)
 {
-	this->setRawBits(this->getRawBits() + fixed.getRawBits());
+	this->setRawBits(this->getRawBits() - other.getRawBits());
 	return (*this);
 }
 
-Fixed& Fixed::operator-(Fixed const &fixed)
+Fixed& Fixed::operator*(Fixed const &other)
 {
-	this->setRawBits(this->getRawBits() - fixed.getRawBits());
+	this->setRawBits((this->getRawBits() * other.getRawBits()) >> this->_fractionalBits);
 	return (*this);
 }
 
-Fixed& Fixed::operator*(Fixed const &fixed)
+Fixed& Fixed::operator/(Fixed const &other)
 {
-	this->setRawBits((this->getRawBits() * fixed.getRawBits()) >> this->_fractionalBits);
-	return (*this);
-}
-
-Fixed& Fixed::operator/(Fixed const &fixed)
-{
-	this->setRawBits((this->getRawBits() << this->_fractionalBits) / fixed.getRawBits());
+	this->setRawBits((this->getRawBits() << this->_fractionalBits) / other.getRawBits());
 	return (*this);
 }
 

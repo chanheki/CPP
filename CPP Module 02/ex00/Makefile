@@ -6,7 +6,7 @@
 #    By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/16 18:05:34 by chanheki          #+#    #+#              #
-#    Updated: 2023/06/02 02:30:26 by chanheki         ###   ########.fr        #
+#    Updated: 2023/06/04 02:14:52 by chanheki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ object_dir	=	./objects
 # ---- TEST ---- #
 
 EXEC		=	Fixed
-
+TEST		=	test
 # ---- escape ---- #
 
 DELINE = \033[K
@@ -91,6 +91,7 @@ clean :
 
 fclean : clean
 	@$(RM) $(NAME)
+	@$(RM) $(TEST)
 	@echo "$(RED) Delete$(BOLD) $(NAME) $(RESTINT)file $(RESET)"
 
 re : fclean

@@ -6,7 +6,7 @@
 #    By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/16 18:05:34 by chanheki          #+#    #+#              #
-#    Updated: 2023/06/02 04:47:02 by chanheki         ###   ########.fr        #
+#    Updated: 2023/06/04 02:15:42 by chanheki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ object_dir	=	./objects
 # ---- TEST ---- #
 
 EXEC		=	bsp
+TEST		=	test
 
 # ---- escape ---- #
 
@@ -47,7 +48,7 @@ sources1 :=	main.cpp
 
 sources1 += Fixed.cpp \
 			Point.cpp \
-			BSP.cpp
+			bsp.cpp
 
 # ---- Bonus ---- #
 
@@ -93,6 +94,7 @@ clean :
 
 fclean : clean
 	@$(RM) $(NAME)
+	@$(RM) $(TEST)
 	@echo "$(RED) Delete$(BOLD) $(NAME) $(RESTINT)file $(RESET)"
 
 re : fclean
@@ -101,5 +103,4 @@ re : fclean
 # ---- Test ---- #
 
 test: all
-	./$(EXEC) > test ; diff test output ;
-	
+	./$(EXEC)

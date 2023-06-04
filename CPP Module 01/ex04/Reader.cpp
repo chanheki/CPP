@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:03:56 by chanheki          #+#    #+#             */
-/*   Updated: 2023/06/01 03:48:14 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/06/03 22:13:38 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,15 @@ Reader::Reader(Validator& validator) : validator(validator),
 Reader::~Reader(void){}
 
 std::string Reader::read() {
-	std::ifstream file(this->validator.getFilename().c_str());
 	std::string line;
 	std::string content;
 
-	while (std::getline(file, line)) {
-		this->validator.openFileValidator(file);
+	while (std::getline(readFile, line)) {
+		this->validator.openFileValidator(readFile);
 		content += line;
-		if (!file.eof())
+		if (!readFile.eof())
 			content += "\n";
 	}
-	file.close();
+	readFile.close();
 	return content;
 }

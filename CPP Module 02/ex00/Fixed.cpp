@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 02:36:47 by chanheki          #+#    #+#             */
-/*   Updated: 2023/06/02 04:35:29 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/06/04 19:20:09 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ Fixed::~Fixed()
 	std::cout << "Destructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &src)
+Fixed::Fixed(const Fixed &src) : _fixedPointValue(src.getRawBits())
 {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = src;
 }
 
 Fixed &Fixed::operator=(const Fixed &rhs)
