@@ -55,13 +55,13 @@ void ClapTrap::attack(std::string const &target)
 		std::cout << "\033[1;34m";
 		std::cout << "[ ClapTrap ]";
 		std::cout << "\033[0m ";
-		std::cout << this->_name << " is out of energy!" << std::endl;
+		std::cout << this->getName() << " is out of energy!" << std::endl;
 		return ;
 	}
 	std::cout << "\033[1;34m";
 	std::cout << "[ ClapTrap ]";
 	std::cout << "\033[0m ";
-	std::cout << this->_name << " attack " << target << ", causing " << this->_attackDamage << " points of damage !" << std::endl;
+	std::cout << this->getName() << " attack " << target << ", causing " << this->getAttackDamage() << " points of damage !" << std::endl;
 	this->_energyPoints -= 1;
 }
 
@@ -71,7 +71,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 	std::cout << "\033[1;34m";
 	std::cout << "[ ClapTrap ]";
 	std::cout << "\033[0m ";
-	std::cout << this->_name << " take " << amount << " damage " << std::endl;
+	std::cout << this->getName() << " take " << amount << " damage " << std::endl;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
@@ -81,7 +81,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 		std::cout << "\033[1;34m";
 		std::cout << "[ ClapTrap ]";
 		std::cout << "\033[0m ";
-		std::cout << this->_name << " is out of energy!" << std::endl;
+		std::cout << this->getName() << " is out of energy!" << std::endl;
 		return ;
 	}
 	this->_hitPoints += amount;
@@ -89,7 +89,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 	std::cout << "\033[1;34m";
 	std::cout << "[ ClapTrap ]";
 	std::cout << "\033[0m ";
-	std::cout << this->_name << " be repaired " << amount << " points of damage!" << std::endl;
+	std::cout << this->getName() << " be repaired " << amount << " points of damage!" << std::endl;
 }
 
 std::string ClapTrap::getName(void) const

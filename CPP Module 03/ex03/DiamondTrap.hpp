@@ -7,8 +7,6 @@
 
 class DiamondTrap : public ScavTrap, public FragTrap
 {
-private:
-	/* data */
 public:
 	DiamondTrap(void);
 	~DiamondTrap();

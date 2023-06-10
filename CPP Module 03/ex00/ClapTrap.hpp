@@ -10,7 +10,7 @@ private:
 	std::string	_name;
 	int			_hitPoints;
 	int			_energyPoints;
-	int			getAttackDamage;
+	int			_attackDamage;
 
 public:
 	ClapTrap(void);
