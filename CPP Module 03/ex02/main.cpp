@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 02:37:06 by chanheki          #+#    #+#             */
-/*   Updated: 2023/06/05 01:31:47 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/06/07 22:47:42 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "FragTrap.hpp"
 
 int main( void ) {
+	{
 	ClapTrap a;
 	ClapTrap b("b");
 	ClapTrap c(b);
@@ -57,8 +58,8 @@ int main( void ) {
 	std::cout << "\033[1;31m";
 	std::cout << "[ Scav Trap ]";
 	std::cout << "\033[0m" << std::endl;
-
-	ScavTrap e;
+}
+{	ScavTrap e;
 	ScavTrap f("f");
 	ScavTrap g(f);
 	ScavTrap h;
@@ -111,8 +112,8 @@ int main( void ) {
 	std::cout << "\033[1;31m";
 	std::cout << "[ Frag Trap ]";
 	std::cout << "\033[0m" << std::endl;
-
-	FragTrap k;
+}
+{	FragTrap k;
 	FragTrap l("l");
 	FragTrap m(l);
 	FragTrap n;
@@ -162,5 +163,7 @@ int main( void ) {
 	k.attack("another target");
 	std::cout << k << std::endl;
 
+	k.highFivesGuys();
+}
 	return 0;
 }

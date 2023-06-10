@@ -24,7 +24,7 @@ ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(10), _energyPoint
 	std::cout << "Default with Param constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &src) : _name(src._name), _hitPoints(src._hitPoints), _energyPoints(src._energyPoints), _attackDamage(src._attackDamage)
+ClapTrap::ClapTrap(const ClapTrap &src) : _name(src.getName()), _hitPoints(src.getHitPoints()), _energyPoints(src.getEnergyPoints()), _attackDamage(src.getAttackDamage())
 {
 	std::cout << "\033[1;34m";
 	std::cout << "[ ClapTrap ]";
@@ -40,28 +40,36 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &rhs)
 	std::cout << "Assignation operator called" << std::endl;
 	if (this != &rhs)
 	{
-		this->_name = rhs._name;
-		this->_hitPoints = rhs._hitPoints;
-		this->_energyPoints = rhs._energyPoints;
-		this->_attackDamage = rhs._attackDamage;
+		this->_name = rhs.getName();
+		this->_hitPoints = rhs.getHitPoints();
+		this->_energyPoints = rhs.getEnergyPoints();
+		this->_attackDamage = rhs.getAttackDamage();
 	}
 	return (*this);
 }
 
 void ClapTrap::attack(std::string const &target)
 {
-	if (this->_energyPoints == 0)
+	if (this->getHitPoints() <= 0)
+	{
+		std::cout << "\033[1;33m";
+		std::cout << "[ ScavTrap ]";
+		std::cout << "\033[0m ";
+		std::cout << this->getName() << " is destroyed" << std::endl;
+		return;
+	}
+	if (this->getEnergyPoints() == 0)
 	{
 		std::cout << "\033[1;34m";
 		std::cout << "[ ClapTrap ]";
 		std::cout << "\033[0m ";
-		std::cout << this->_name << " is out of energy!" << std::endl;
+		std::cout << this->getName() << " is out of energy!" << std::endl;
 		return ;
 	}
 	std::cout << "\033[1;34m";
 	std::cout << "[ ClapTrap ]";
 	std::cout << "\033[0m ";
-	std::cout << this->_name << " attack " << target << ", causing " << this->_attackDamage << " points of damage !" << std::endl;
+	std::cout << this->getName() << " attack " << target << ", causing " << this->getAttackDamage() << " points of damage !" << std::endl;
 	this->_energyPoints -= 1;
 }
 

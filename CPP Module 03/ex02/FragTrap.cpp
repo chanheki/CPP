@@ -47,38 +47,12 @@ FragTrap &FragTrap::operator=(const FragTrap &rhs)
 	std::cout << "Assignation operator called" << std::endl;
 	if (this != &rhs)
 	{
-		_name = rhs._name;
-		_hitPoints = rhs._hitPoints;
-		_energyPoints = rhs._energyPoints;
-		_attackDamage = rhs._attackDamage;
+		this->_name = rhs.getName();
+		this->_hitPoints = rhs.getHitPoints();
+		this->_energyPoints = rhs.getEnergyPoints();
+		this->_attackDamage = rhs.getAttackDamage();
 	}
 	return (*this);
-}
-
-void FragTrap::attack(std::string const &target)
-{
-	if (_hitPoints <= 0)
-	{
-		std::cout << "\033[1;32m";
-		std::cout << "[ FragTrap ]";
-		std::cout << "\033[0m ";
-		std::cout << this->getName() << " is destroyed" << std::endl;
-		return ;
-	}
-	else if (this->getEnergyPoints() == 0)
-	{
-		std::cout << "\033[1;32m";
-		std::cout << "[ FragTrap ]";
-		std::cout << "\033[0m ";
-		std::cout << this->getName() << " not enough energy" << std::endl;
-		return ;
-	}
-	guardGate();
-	this->_energyPoints -= 1;
-	std::cout << "\033[1;32m";
-	std::cout << "[ FragTrap ]";
-	std::cout << "\033[0m ";
-	std::cout << this->getName() << " attack " << target << ", causing " << this->getAttackDamage() << " points of damage!" << std::endl;
 }
 
 void FragTrap::highFivesGuys(void)

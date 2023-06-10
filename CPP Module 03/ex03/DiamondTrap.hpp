@@ -18,3 +18,5 @@ public:
 public:
 	void whoAmI(void);
 };
+
+#endif

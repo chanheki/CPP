@@ -6,7 +6,7 @@
 #    By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/16 18:05:34 by chanheki          #+#    #+#              #
-#    Updated: 2023/06/05 01:45:15 by chanheki         ###   ########.fr        #
+#    Updated: 2023/06/05 18:44:20 by chanheki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME		=	trap
 
 CC			=	c++
 STD			=	-std=c++98
-CFLAGS		=	-Wall -Wextra -Werror $(STD)
+CFLAGS		=	-Wall -Wextra -Werror $(STD) $(DBGS)
 DBGS		=	-fsanitize=address -g3
 
 RM			=	rm -rf

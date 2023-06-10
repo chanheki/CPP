@@ -47,17 +47,17 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &rhs)
 	std::cout << "Assignation operator called" << std::endl;
 	if (this != &rhs)
 	{
-		_name = rhs._name;
-		_hitPoints = rhs._hitPoints;
-		_energyPoints = rhs._energyPoints;
-		_attackDamage = rhs._attackDamage;
+		_name = rhs.getName();
+		_hitPoints = rhs.getHitPoints();
+		_energyPoints = rhs.getEnergyPoints();
+		_attackDamage = rhs.getAttackDamage();
 	}
 	return (*this);
 }
 
 void ScavTrap::attack(std::string const &target)
 {
-	if (_hitPoints <= 0)
+	if (this->getHitPoints() <= 0)
 	{
 		std::cout << "\033[1;33m";
 		std::cout << "[ ScavTrap ]";

@@ -15,7 +15,7 @@ ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(10), _energyPoint
 	std::cout << "ClapTrap Default with Param constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &src) : _name(src._name), _hitPoints(src._hitPoints), _energyPoints(src._energyPoints), _attackDamage(src._attackDamage)
+ClapTrap::ClapTrap(const ClapTrap &src) : _name(src.getName()), _hitPoints(src.getHitPoints()), _energyPoints(src.getEnergyPoints()), _attackDamage(src.getAttackDamage())
 {
 	std::cout << "ClapTrap Copy with Param Init constructor called" << std::endl;
 }
@@ -25,10 +25,10 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &rhs)
 	std::cout << "ClapTrap Assignation operator called" << std::endl;
 	if (this != &rhs)
 	{
-		this->_name = rhs._name;
-		this->_hitPoints = rhs._hitPoints;
-		this->_energyPoints = rhs._energyPoints;
-		this->_attackDamage = rhs._attackDamage;
+		this->_name = rhs.getName();
+		this->_hitPoints = rhs.getHitPoints();
+		this->_energyPoints = rhs.getEnergyPoints();
+		this->_attackDamage = rhs.getAttackDamage();
 	}
 	return (*this);
 }
