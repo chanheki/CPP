@@ -29,35 +29,24 @@ void identify(Base* p) {
     std::cout << "it is an instance of class B" << std::endl;
   else if (dynamic_cast<C*>(p) != NULL)
     std::cout << "it is an instance of class C" << std::endl;
+  else
+    std::cout << "it is not an instance of any class" << std::endl;
 }
 
 void identify(Base& p) {
-  int eflag = 0;
-
   try {
     (void)dynamic_cast<A&>(p);
+    std::cout << "it is an instance of class A" << std::endl;
   } catch (std::bad_cast& bc) {
-    eflag |= 0b001;
   }
   try {
     (void)dynamic_cast<B&>(p);
+    std::cout << "it is an instance of class B" << std::endl;
   } catch (std::bad_cast& bc) {
-    eflag |= 0b010;
   }
   try {
     (void)dynamic_cast<C&>(p);
+    std::cout << "it is an instance of class C" << std::endl;
   } catch (std::bad_cast& bc) {
-    eflag |= 0b100;
-  }
-
-  switch (eflag ^ 0b111) {
-    case 0b001:
-      std::cout << "it is an instance of class A" << std::endl;
-      break;
-    case 0b010:
-      std::cout << "it is an instance of class B" << std::endl;
-      break;
-    case 0b100:
-      std::cout << "it is an instance of class C" << std::endl;
   }
 }

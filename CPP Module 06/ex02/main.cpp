@@ -32,6 +32,5 @@ int main(void) {
 #endif
   if (test()) return 1;
   std::cout << std::endl;
-  // std::system("leaks Identify");
   return 0;
 }

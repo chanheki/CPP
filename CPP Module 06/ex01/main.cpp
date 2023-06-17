@@ -50,6 +50,5 @@ int main(void) {
 #endif
   if (test()) return 1;
   std::cout << std::endl;
-  // std::system("leaks Serialization");
   return 0;
 }
