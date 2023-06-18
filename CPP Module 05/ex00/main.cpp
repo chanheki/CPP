@@ -15,6 +15,8 @@ int main() {
     std::cout << b150;
     b150.incrementGrade();
     std::cout << b150;
+    b150.decrementGrade();
+    b150.decrementGrade();
   } catch (std::exception& e) {
     std::cout << e.what() << std::endl;
   }

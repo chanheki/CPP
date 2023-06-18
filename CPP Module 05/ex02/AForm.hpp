@@ -11,14 +11,11 @@ class AForm {
  private:
   std::string const _name;
   bool _signed;
-  int _gradeToSign;
-  int _gradeToExecute;
+  const int _gradeToSign;
+  const int _gradeToExecute;
 
   AForm(void);
   void checkGrade(int grade) const;
-
-  void setGradeToSign(int gradeToSign);
-  void setGradeToExecute(int gradeToExecute);
 
  public:
   AForm(std::string name, int gradeToSign, int gradeToExecute);

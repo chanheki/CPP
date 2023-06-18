@@ -17,17 +17,18 @@ int main() {
     Intern someRandomIntern;
     AForm *rrf;
     rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+
     Intern intern;
-    AForm *presidentialPardonForm =
-        intern.makeForm("PresidentialPardonForm", "target1");
+    AForm *shrubberyCreationForm =
+        intern.makeForm("ShrubberyCreationForm", "target1");
     AForm *robotomyRequestForm =
         intern.makeForm("RobotomyRequestForm", "target2");
-    AForm *shrubberyCreationForm =
-        intern.makeForm("ShrubberyCreationForm", "target3");
+    AForm *presidentialPardonForm =
+        intern.makeForm("PresidentialPardonForm", "target3");
 
-    std::cout << *presidentialPardonForm << std::endl;
-    std::cout << *robotomyRequestForm << std::endl;
     std::cout << *shrubberyCreationForm << std::endl;
+    std::cout << *robotomyRequestForm << std::endl;
+    std::cout << *presidentialPardonForm << std::endl;
 
     Bureaucrat b150("b150", 150);
     b150.decrementGrade();
@@ -39,11 +40,11 @@ int main() {
 
     std::cout << "---" << std::endl;
 
-    presidentialPardonForm->beSigned(Bureaucrat("b150", 150));
-    presidentialPardonForm->execute(Bureaucrat("b10", 10));
-    presidentialPardonForm->beSigned(Bureaucrat("b1", 1));
-    presidentialPardonForm->execute(Bureaucrat("b1", 1));
-    presidentialPardonForm->execute(Bureaucrat("b150", 150));
+    shrubberyCreationForm->beSigned(Bureaucrat("b150", 150));
+    shrubberyCreationForm->execute(Bureaucrat("b3", 1));
+    shrubberyCreationForm->beSigned(Bureaucrat("b3", 1));
+    shrubberyCreationForm->execute(Bureaucrat("b3", 1));
+    shrubberyCreationForm->execute(Bureaucrat("b150", 150));
     std::cout << std::endl;
     robotomyRequestForm->beSigned(Bureaucrat("b150", 150));
     robotomyRequestForm->execute(Bureaucrat("b2", 1));
@@ -51,11 +52,11 @@ int main() {
     robotomyRequestForm->execute(Bureaucrat("b2", 1));
     robotomyRequestForm->execute(Bureaucrat("b150", 150));
     std::cout << std::endl;
-    shrubberyCreationForm->beSigned(Bureaucrat("b150", 150));
-    shrubberyCreationForm->execute(Bureaucrat("b3", 1));
-    shrubberyCreationForm->beSigned(Bureaucrat("b3", 1));
-    shrubberyCreationForm->execute(Bureaucrat("b3", 1));
-    shrubberyCreationForm->execute(Bureaucrat("b150", 150));
+    presidentialPardonForm->beSigned(Bureaucrat("b150", 150));
+    presidentialPardonForm->execute(Bureaucrat("b10", 10));
+    presidentialPardonForm->beSigned(Bureaucrat("b1", 1));
+    presidentialPardonForm->execute(Bureaucrat("b1", 1));
+    presidentialPardonForm->execute(Bureaucrat("b150", 150));
     std::cout << std::endl;
     delete presidentialPardonForm;
     delete robotomyRequestForm;

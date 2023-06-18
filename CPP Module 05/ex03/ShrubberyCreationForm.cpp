@@ -47,12 +47,12 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const {
     if (!this->getSigned()) throw AForm::NotSignedException();
     if (executor.getGrade() > this->getGradeToExecute())
       throw AForm::GradeTooLowException();
-    std::cout << executor.getName() << " executed " << this->getName()
-              << std::endl;
     std::ofstream ofs;
     this->openFile(ofs);
     this->drawTree(ofs);
     this->closeFile(ofs);
+    std::cout << executor.getName() << " executed " << this->getName()
+              << std::endl;
   } catch (std::exception& e) {
     std::cout << e.what() << " " << this->getGradeToExecute() << std::endl;
   }

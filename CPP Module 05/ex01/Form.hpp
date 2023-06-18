@@ -11,8 +11,8 @@ class Form {
  private:
   std::string const _name;
   bool _signed;
-  int _gradeToSign;
-  int _gradeToExecute;
+  const int _gradeToSign;
+  const int _gradeToExecute;
 
   Form(void);
   void checkGrade(int grade) const;
@@ -22,9 +22,6 @@ class Form {
   class GradeTooLowException : public std::exception {
     virtual const char* what(void) const throw();
   };
-
-  void setGradeToSign(int gradeToSign);
-  void setGradeToExecute(int gradeToExecute);
 
  public:
   Form(std::string name, int gradeToSign, int gradeToExecute);

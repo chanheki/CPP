@@ -10,7 +10,6 @@ class PresidentialPardonForm : public AForm {
   void setTarget(std::string target);
 
  public:
-  PresidentialPardonForm(std::string name, std::string target);
   PresidentialPardonForm(const PresidentialPardonForm& src);
   virtual ~PresidentialPardonForm(void);
   PresidentialPardonForm& operator=(PresidentialPardonForm const& rhs);

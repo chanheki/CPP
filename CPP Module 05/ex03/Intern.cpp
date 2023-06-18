@@ -10,8 +10,8 @@ Intern& Intern::operator=(const Intern& src) {
   return *this;
 }
 
-AForm* Intern::makeForm(const std::string form_to_create,
-                        const std::string target_for_form) {
+AForm* Intern::makeForm(const std::string formToCreate,
+                        const std::string targetForForm) {
   AForm* ret = NULL;
   std::string forms[] = {"PresidentialPardonForm", "RobotomyRequestForm",
                          "ShrubberyCreationForm"};
@@ -19,9 +19,9 @@ AForm* Intern::makeForm(const std::string form_to_create,
       &createPresidentialPardonForm, &createRobotomyRequestForm,
       &createShrubberyCreationForm};
   for (int i = 0; i < 3; i++) {
-    if (form_to_create == forms[i]) {
-      std::cout << ("Intern creates " + form_to_create) << std::endl;
-      return (creaters[i](target_for_form));
+    if (formToCreate == forms[i]) {
+      std::cout << ("Intern creates " + formToCreate) << std::endl;
+      return (creaters[i](targetForForm));
     }
   }
   try {

@@ -21,7 +21,7 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(
 }
 
 const char* ShrubberyCreationForm::FileOpenException::what() const throw() {
-  return "file open failed";
+  return "file open failed, request grade is";
 }
 
 void ShrubberyCreationForm::openFile(std::ofstream& ofs) const {
@@ -48,12 +48,12 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const {
   if (!this->getSigned()) throw AForm::NotSignedException();
   if (executor.getGrade() > this->getGradeToExecute())
     throw AForm::GradeTooLowException();
-  std::cout << executor.getName() << " executed " << this->getName()
-            << std::endl;
   std::ofstream ofs;
   this->openFile(ofs);
   this->drawTree(ofs);
   this->closeFile(ofs);
+  std::cout << executor.getName() << " executed " << this->getName()
+            << std::endl;
 }
 
 void ShrubberyCreationForm::drawTree(std::ofstream& ofs) const {

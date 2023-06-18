@@ -4,17 +4,15 @@ Form::Form(void)
     : _name("default"),
       _signed(false),
       _gradeToSign(150),
-      _gradeToExecute(150) {
-  return;
-}
+      _gradeToExecute(150) {}
 
 Form::Form(std::string name, int gradeToSign, int gradeToExecute)
-    : _name(name), _signed(false) {
-  checkGrade(gradeToSign);
-  checkGrade(gradeToExecute);
-  setGradeToExecute(gradeToExecute);
-  setGradeToSign(gradeToSign);
-  return;
+    : _name(name),
+      _signed(false),
+      _gradeToSign(gradeToSign),
+      _gradeToExecute(gradeToExecute) {
+  this->checkGrade(gradeToSign);
+  this->checkGrade(gradeToExecute);
 }
 
 Form::~Form(void) {}
@@ -26,12 +24,11 @@ void Form::checkGrade(int grade) const {
     throw Form::GradeTooLowException();
 }
 
-Form::Form(const Form& src) : _name(src._name), _signed(src._signed) {
-  checkGrade(src._gradeToSign);
-  checkGrade(src._gradeToExecute);
-  setGradeToExecute(src._gradeToExecute);
-  setGradeToSign(src._gradeToSign);
-}
+Form::Form(const Form& src)
+    : _name(src._name),
+      _signed(src._signed),
+      _gradeToSign(src._gradeToSign),
+      _gradeToExecute(src._gradeToExecute) {}
 
 Form& Form::operator=(Form const& rhs) {
   if (this != &rhs) {
@@ -46,16 +43,6 @@ const char* Form::GradeTooHighException::what(void) const throw() {
 
 const char* Form::GradeTooLowException::what(void) const throw() {
   return "Grade too low";
-}
-
-void Form::setGradeToSign(int gradeToSign) {
-  this->checkGrade(gradeToSign);
-  this->_gradeToSign = gradeToSign;
-}
-
-void Form::setGradeToExecute(int gradeToExecute) {
-  this->checkGrade(gradeToExecute);
-  this->_gradeToExecute = gradeToExecute;
 }
 
 std::string const& Form::getName(void) const { return (this->_name); }

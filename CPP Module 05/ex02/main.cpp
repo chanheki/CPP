@@ -52,7 +52,7 @@ int main() {
     std::cout << std::endl;
 
     std::cout << "--- EXECUTE Robotomy FORMS --- " << std::endl;
-    for (int i = 0; i < 4; i++) b45.executeForm(f2);
+    b45.executeForm(f2);
     std::cout << std::endl;
 
     std::cout << "--- EXECUTE Presidential Pardon FORMS --- " << std::endl;

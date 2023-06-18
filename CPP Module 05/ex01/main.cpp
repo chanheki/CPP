@@ -14,8 +14,9 @@ int main() {
     std::cout << f1;
     Form f2("f2", 75, 75);
     std::cout << f2;
-    Form f3("f3", 2, 2);
+    Form f3("f3", 1, 1);
     std::cout << f3;
+    std::cout << std::endl;
 
     Bureaucrat b150("b150", 150);
     std::cout << b150;
@@ -25,6 +26,7 @@ int main() {
     std::cout << f2;
     b150.signForm(f3);
     std::cout << f3;
+    std::cout << std::endl;
 
     Bureaucrat b1("b1", 1);
     std::cout << b1;

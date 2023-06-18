@@ -4,17 +4,15 @@ AForm::AForm(void)
     : _name("default"),
       _signed(false),
       _gradeToSign(150),
-      _gradeToExecute(150) {
-  return;
-}
+      _gradeToExecute(150) {}
 
 AForm::AForm(std::string name, int gradeToSign, int gradeToExecute)
-    : _name(name), _signed(false) {
-  checkGrade(gradeToSign);
-  checkGrade(gradeToExecute);
-  setGradeToExecute(gradeToExecute);
-  setGradeToSign(gradeToSign);
-  return;
+    : _name(name),
+      _signed(false),
+      _gradeToSign(gradeToSign),
+      _gradeToExecute(gradeToExecute) {
+  this->checkGrade(gradeToSign);
+  this->checkGrade(gradeToExecute);
 }
 
 AForm::~AForm(void) {}
@@ -26,18 +24,15 @@ void AForm::checkGrade(int grade) const {
     throw AForm::GradeTooLowException();
 }
 
-AForm::AForm(const AForm& src) : _name(src._name), _signed(src._signed) {
-  checkGrade(src._gradeToSign);
-  checkGrade(src._gradeToExecute);
-  setGradeToExecute(src._gradeToExecute);
-  setGradeToSign(src._gradeToSign);
-}
+AForm::AForm(const AForm& src)
+    : _name(src._name),
+      _signed(src._signed),
+      _gradeToSign(src._gradeToSign),
+      _gradeToExecute(src._gradeToExecute) {}
 
 AForm& AForm::operator=(AForm const& rhs) {
   if (this != &rhs) {
     this->_signed = rhs.getSigned();
-    this->_gradeToSign = rhs.getGradeToSign();
-    this->_gradeToExecute = rhs.getGradeToExecute();
   }
   return (*this);
 }
@@ -52,16 +47,6 @@ const char* AForm::GradeTooLowException::what(void) const throw() {
 
 const char* AForm::NotSignedException::what() const throw() {
   return "Form is not signed yet";
-}
-
-void AForm::setGradeToSign(int gradeToSign) {
-  this->checkGrade(gradeToSign);
-  this->_gradeToSign = gradeToSign;
-}
-
-void AForm::setGradeToExecute(int gradeToExecute) {
-  this->checkGrade(gradeToExecute);
-  this->_gradeToExecute = gradeToExecute;
 }
 
 std::string const& AForm::getName(void) const { return (this->_name); }
