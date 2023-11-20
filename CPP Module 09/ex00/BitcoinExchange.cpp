@@ -1,47 +1,54 @@
 #include "BitcoinExchange.hpp"
 
+BitcoinExchange::BitcoinExchange(void) {}
 BitcoinExchange::~BitcoinExchange(void) {}
+BitcoinExchange& BitcoinExchange::operator=(BitcoinExchange const& other) {
+  if (this != &other) {
+    _dataMap = other._dataMap;
+  }
+  return (*this);
+}
 
 BitcoinExchange::BitcoinExchange(int ac, char** av) {
   if (ac != 2) {
-    std::cerr << "Error: could not open file" << std::endl;
-    std::exit(1);
+    printErrorExit("Error: could not open file");
   }
 
-  csvToMap();
+  openCsvFile();
   openInputFile(av[1]);
 }
 
-void BitcoinExchange::csvToMap() {
+void BitcoinExchange::openCsvFile() {
   std::string csvPath = "./data.csv";
   std::ifstream csv(csvPath.c_str(), std::ifstream::in);
   if (!csv.is_open()) {
-    std::cerr << "Error: Invalid File Open" << std::endl;
-    std::exit(1);
+    printErrorExit("Error: Invalid File Open");
   }
 
   std::string line;
   std::getline(csv, line);
-  if (line != "date,exchange_rate") std::exit(1);
-  while (std::getline(csv, line)) {
-    line.erase(line.find_last_not_of(" \n\r\t") + 1);
+  if (line != "date,exchange_rate") {
+    printErrorExit("Error: Unsupported formats data.csv => " + line);
+  }
 
+  while (std::getline(csv, line)) {
     size_t commaIndex = line.find(',');
     if (commaIndex == std::string::npos) {
-      std::cerr << "CSV Error: bad input => " << line << std::endl;
-      std::exit(1);
+      printErrorExit("CSV Error: bad input => " + line);
     }
 
     std::string leftSide = line.substr(0, commaIndex);
     std::string rightSide = line.substr(commaIndex + 1);
 
+    eraseWhiteSpace(leftSide);
+    eraseWhiteSpace(rightSide);
+
     std::istringstream iss(rightSide);
-    float value;
+    double value;
     iss >> value;
 
-    if (!checkValidKey(leftSide) || !checkCsvValidValue(rightSide)) {
-      std::cerr << "CSV Error: bad input => " << line << std::endl;
-      std::exit(1);
+    if (!checkValidDate(leftSide) || !checkCsvValidValue(rightSide)) {
+      printErrorExit("CSV Error: bad input => " + line);
     }
 
     _dataMap[leftSide] = value;
@@ -49,79 +56,79 @@ void BitcoinExchange::csvToMap() {
 }
 
 void BitcoinExchange::openInputFile(std::string av) {
-  _filename = av;
+  std::string _filename = av;
   std::ifstream _file(_filename.c_str(), std::ifstream::in);
+  std::string line;
 
   if (!_file.is_open()) {
-    std::cerr << "Error: Invalid File Open" << std::endl;
-    std::exit(1);
+    printErrorExit("Error: Invalid File Open");
   }
 
-  std::string line;
+  std::getline(_file, line);
+  if (line != "date | value") {
+    printErrorExit("Error: Unsupported formats input file");
+  }
+
   while (std::getline(_file, line)) {
     this->parseLine(line);
   }
 }
 
 void BitcoinExchange::parseLine(std::string line) {
-  if (line == "date | value") return;
-
-  if (checkValidData(line)) {
-    std::string year = line.substr(0, 4);
-    std::string month = line.substr(5, 2);
-    std::string day = line.substr(8, 2);
+  if (checkValidInput(line)) {
     std::string date = line.substr(0, 10);
     std::string value = line.substr(13);
 
-    if (!parsingMapKey(year, month, day) || date < _dataMap.begin()->first) {
-      std::cerr << "Error: bad input => " << date << std::endl;
+    if (date < _dataMap.begin()->first) {
+      printError("Error: bad input => " + date);
       return;
     }
-    std::map<std::string, float>::iterator it_upper =
+
+    std::map<std::string, double>::iterator it_upper =
         _dataMap.upper_bound(date);
-    if (it_upper != _dataMap.begin() && it_upper->first != date) {
-      it_upper--;
-    }
-    float floatValue;
-    std::istringstream(value) >> floatValue;
+    it_upper--;
+
+    double doubleValue;
+    std::istringstream(value) >> doubleValue;
     std::cerr << date << " => " << value << " = "
-              << it_upper->second * floatValue << std::endl;
+              << it_upper->second * doubleValue << std::endl;
   }
 }
 
-int BitcoinExchange::checkValidData(std::string line) {
+int BitcoinExchange::checkValidInput(std::string line) {
   std::string before_pipe;
   std::string after_pipe;
 
   if (line.length() < 13 || line[10] != ' ' || line[11] != '|' ||
       line[12] != ' ') {
-    std::cerr << "Error: bad input => " << line << std::endl;
+    printError("Error: bad input => " + line);
     return (0);
   }
   before_pipe = line.substr(0, 10);
   after_pipe = line.substr(13);
-  if (checkValidKey(before_pipe) && checkValidValue(after_pipe)) return (1);
+  if (checkValidDate(before_pipe) && checkInputValidValue(after_pipe))
+    return (1);
   return (0);
 }
 
-int BitcoinExchange::checkValidKey(std::string line) {
+int BitcoinExchange::checkValidDate(std::string line) {
   size_t i = 0;
   size_t len = line.length();
 
   if (len != 10) {
-    std::cerr << "Error: bad input => " << line << std::endl;
+    printError("Error: bad input => " + line);
     return (0);
   }
 
   while (i < len) {
     if ((i < 4) || (i > 4 && i < 7) || (i > 7 && i < 10)) {
-      if (!isdigit(line[i])) {
-        std::cerr << "Error: bad input => " << line << std::endl;
+      if (!std::isdigit(line[i])) {
+        printError("Error: bad input => " + line);
         return (0);
       }
     } else if (i == 4 || i == 7) {
       if (line[i] != '-') {
-        std::cerr << "Error: bad input => " << line << std::endl;
+        printError("Error: bad input => " + line);
         return (0);
       }
     }
@@ -132,53 +139,33 @@ int BitcoinExchange::checkValidKey(std::string line) {
   std::string month = line.substr(5, 2);
   std::string day = line.substr(8, 2);
 
-  int iYear = stringToInt(year);
-  int iMonth = stringToInt(month);
-  int iDay = stringToInt(day);
+  int YY = stringToInt(year);
+  int MM = stringToInt(month);
+  int DD = stringToInt(day);
 
-  if (iMonth > 12 || iMonth < 1) {
+  if (MM > 12 || MM < 1) {
     std::cerr << "Error: bad input => " << line << std::endl;
     return (0);
   }
 
-  if (iMonth == 2) {
-    if (isLeapYear(iYear) && (iDay < 1 || iDay > 29)) {
+  if (MM == 2) {
+    if (isLeapYear(YY) && (DD < 1 || DD > 29)) {
       std::cerr << "Error: bad input => " << line << std::endl;
       return (0);
-    } else if (!isLeapYear(iYear) && (iDay < 1 || iDay > 28)) {
+    } else if (!isLeapYear(YY) && (DD < 1 || DD > 28)) {
       std::cerr << "Error: bad input => " << line << std::endl;
       return (0);
     }
-  } else if (iMonth == 4 || iMonth == 6 || iMonth == 9 || iMonth == 11) {
-    if (iDay < 1 || iDay > 30) {
+  } else if (MM == 4 || MM == 6 || MM == 9 || MM == 11) {
+    if (DD < 1 || DD > 30) {
       std::cerr << "Error: bad input => " << line << std::endl;
       return (0);
     }
   } else {
-    if (iDay < 1 || iDay > 31) {
+    if (DD < 1 || DD > 31) {
       std::cerr << "Error: bad input => " << line << std::endl;
       return (0);
     }
-  }
-  return (1);
-}
-
-int BitcoinExchange::checkValidValue(std::string line) {
-  std::istringstream iss(line);
-  double value;
-  iss >> value;
-
-  if (iss.fail()) {
-    std::cerr << "Error: bad input => " << line << std::endl;
-    return (0);
-  }
-
-  if (value < 0) {
-    std::cerr << "Error: not a positive number" << std::endl;
-    return (0);
-  } else if (value > 1000) {
-    std::cerr << "Error: too large a number" << std::endl;
-    return (0);
   }
   return (1);
 }
@@ -188,6 +175,11 @@ int BitcoinExchange::checkCsvValidValue(std::string line) {
   double value;
   iss >> value;
 
+  if (!isNumberOrDot(line)) {
+    std::cerr << "Error: bad input => " << line << std::endl;
+    return (0);
+  }
+
   if (iss.fail()) {
     std::cerr << "Error: bad input => " << line << std::endl;
     return (0);
@@ -200,27 +192,28 @@ int BitcoinExchange::checkCsvValidValue(std::string line) {
   return (1);
 }
 
-bool BitcoinExchange::parsingMapKey(std::string paraYear, std::string paraMonth,
-                                    std::string paraDay) {
-  int year;
-  int month;
-  int day;
+int BitcoinExchange::checkInputValidValue(std::string line) {
+  std::istringstream iss(line);
+  double value;
+  iss >> value;
 
-  if (stringToInt(paraYear) < 0 || stringToInt(paraMonth) < 0 ||
-      stringToInt(paraDay) < 0)
+  if (!isNumberOrDot(line)) {
+    std::cerr << "Error: bad input => " << line << std::endl;
     return (0);
+  }
 
-  year = stringToInt(paraYear);
-  month = stringToInt(paraMonth);
-  day = stringToInt(paraDay);
+  if (iss.fail()) {
+    std::cerr << "Error: bad input => " << line << std::endl;
+    return (0);
+  }
 
-  if (year < 2009 || 2022 < year || month < 1 || 12 < month || day < 1 ||
-      31 < day)
+  if (value <= 0) {
+    std::cerr << "Error: not a positive number" << std::endl;
     return (0);
-  if (day > 29 && month == 2) return (0);
-  if (day == 29 && month == 2 && year % 4 != 0) return (0);
-  if (day > 30 && (month == 4 || month == 6 || month == 9 || month == 11))
+  } else if (value >= 1000) {
+    std::cerr << "Error: too large a number" << std::endl;
     return (0);
+  }
   return (1);
 }
 
@@ -228,6 +221,35 @@ bool BitcoinExchange::isLeapYear(int year) {
   return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
 }
 
-int BitcoinExchange::stringToInt(const std::string& str) {
-  return std::atoi(str.c_str());
+int stringToInt(const std::string& str) { return std::atoi(str.c_str()); }
+
+void printErrorExit(const std::string& s) {
+  std::cerr << s << std::endl;
+  std::exit(1);
+}
+
+void printError(const std::string& s) { std::cerr << s << std::endl; }
+
+void eraseWhiteSpace(std::string& str) {
+  std::string whitespaces(" \t\f\v\n\r");
+  std::size_t found = str.find_last_not_of(whitespaces);
+  if (found != std::string::npos)
+    str.erase(found + 1);
+  else
+    str.clear();
+}
+
+bool isNumberOrDot(const std::string& line) {
+  int dot = 0;
+  for (size_t i = 0; i < line.length(); ++i) {
+    if (line[i] == '.') {
+      dot++;
+      if (dot > 1) return false;
+    }
+
+    if (!std::isdigit(line[i]) && line[i] != '.') {
+      return false;
+    }
+  }
+  return true;
 }
