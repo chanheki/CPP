@@ -35,8 +35,8 @@ class BitcoinExchange {
 
 int stringToInt(const std::string &str);
 void eraseWhiteSpace(std::string &str);
-void printErrorExit(const std::string &s);
-void printError(const std::string &s);
+void printErrorExit(const std::string &str);
+void printError(const std::string &str);
 bool isNumberOrDot(const std::string &line);
 
 #endif

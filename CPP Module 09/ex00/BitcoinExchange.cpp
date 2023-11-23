@@ -90,7 +90,7 @@ void BitcoinExchange::parseLine(std::string line) {
 
     double doubleValue;
     std::istringstream(value) >> doubleValue;
-    std::cerr << date << " => " << value << " = "
+    std::cout << date << " => " << value << " = "
               << it_upper->second * doubleValue << std::endl;
   }
 }
@@ -223,12 +223,12 @@ bool BitcoinExchange::isLeapYear(int year) {
 
 int stringToInt(const std::string& str) { return std::atoi(str.c_str()); }
 
-void printErrorExit(const std::string& s) {
-  std::cerr << s << std::endl;
+void printErrorExit(const std::string& str) {
+  std::cerr << str << std::endl;
   std::exit(1);
 }
 
-void printError(const std::string& s) { std::cerr << s << std::endl; }
+void printError(const std::string& str) { std::cerr << str << std::endl; }
 
 void eraseWhiteSpace(std::string& str) {
   std::string whitespaces(" \t\f\v\n\r");
