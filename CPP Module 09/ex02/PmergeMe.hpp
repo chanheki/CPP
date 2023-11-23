@@ -8,6 +8,7 @@
 #include <deque>
 #include <iomanip>
 #include <iostream>
+#include <set>
 #include <utility>
 #include <vector>
 
@@ -27,15 +28,17 @@ class PmergeMe {
   PmergeMe(const std::vector<int>& sequenceVector);
   ~PmergeMe(void);
 
+  void chaining(int ac, char** av, PmergeMe& pmerge);
   int getSolo() const;
   void setSolo(int s);
 
   void vecPushBack(int const& mc, int const& pe);
-  void printingPairVec(const std::string& msg,
-                       const std::vector<std::pair<int, int> >& container);
   void fordJohnsonSort();
   size_t findInSorted(int i);
 };
+void printingPairVec(const std::string& msg,
+                     const std::vector<std::pair<int, int> >& container,
+                     int& _solo);
 
 template <typename T>
 void printing(const std::string& msg, const T& container) {
@@ -62,5 +65,11 @@ void calcTime(T& container, void (*fordJohnsonSort)(T&, int, int)) {
             << " elements with std::container type " << std::fixed
             << std::setprecision(10) << timeMicroSeconds << " us" << std::endl;
 }
+
+int binarySearchInsertPos(const std::vector<std::pair<int, int> >& sorted_vec,
+                          const int& target);
+
+size_t _findInSorted(int i, std::vector<int>& sorted_vec);
+std::vector<int> chaining(std::vector<int> vec);
 
 #endif
