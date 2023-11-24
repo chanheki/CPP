@@ -16,7 +16,7 @@ NAME		=	PmergeMe
 
 CC			=	c++
 STD			=	-std=c++98
-CXXFLAGS	=	-Wall -Wextra -Werror $(STD)
+CXXFLAGS	=	-Wall -Wextra -Werror $(STD) $(DBGS)
 DBGS		=	-fsanitize=address -g3
 
 RM			=	rm -rf
@@ -111,13 +111,22 @@ dbg: fclean all
 	./$(EXEC)
 
 test: all 
-	./$(EXEC) 5 8 10 20 30 1 2 4 6 9 11 21
+	./$(EXEC) 3 5 9 7 4
 
 test1: all 
 	./$(EXEC) 5 8 10 20 30 1 2 4 6 9 11 21 7
 
 test2: all 
 	./$(EXEC) 5 8 10 20 30 1 2 4 6 9 11 21 7 5
+
+test3: all 
+	./$(EXEC) 4 3 2 0
+
+test4: all 
+	./$(EXEC) 
 	
-test3: all
-	./$(EXEC) `jot -r 3000 1 100000 | tr '\n' ' ' | awk '!seen[$$0]++' | tr ' ' '\n'`
+test5: all
+	./$(EXEC) `jot -r 3000 1 100000 | sort -uR `
+
+test6: all
+	./$(EXEC) `jot -r 10000 1 100000 | sort -uR `
